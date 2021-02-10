@@ -3,9 +3,9 @@ import { createMuiTheme } from '@material-ui/core/styles';
 export const theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#757ce8',
-      main: '#3f50b5',
-      dark: '#002884',
+      light: '#5ED99E',
+      main: '#2DBE78',
+      dark: '#28A96B',
       contrastText: '#fff',
     },
     secondary: {
@@ -23,6 +23,16 @@ export const theme = createMuiTheme({
   },
   typography: {
     fontFamily: 'DM Sans',
+    body1: {
+      '@media (max-width:360px)': {
+        fontSize: '.875rem',
+      },
+    },
+    body2: {
+      '@media (max-width:360px)': {
+        fontSize: '.75rem',
+      },
+    },
   },
   components: {
     MuiCssBaseline: {

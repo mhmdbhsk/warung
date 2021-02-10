@@ -34,6 +34,7 @@ const styles = makeStyles((theme) => ({
   },
   helper: {
     color: theme.palette.primary.main,
+    cursor: 'pointer',
   },
   item: {
     cursor: 'pointer',
@@ -395,6 +396,7 @@ const CategoryItem = ({ data, index }: CategoryItemProps) => {
                 ? `${data.image.src}`
                 : `http://via.placeholder.com/40`
             }
+            alt={data.name}
             width={40}
             height={40}
           />

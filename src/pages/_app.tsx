@@ -1,5 +1,8 @@
 import * as React from 'react';
 import Head from 'next/head';
+import Router from 'next/router';
+import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
 import { AppProps } from 'next/app';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { CacheProvider } from '@emotion/react';
@@ -8,6 +11,13 @@ import createCache from '@emotion/cache';
 import { theme } from '@theme';
 
 export const cache = createCache({ key: 'css', prepend: true });
+
+Router.events.on('routeChangeStart', (url) => {
+  console.log(`Loading: ${url}`);
+  NProgress.start();
+});
+Router.events.on('routeChangeComplete', () => NProgress.done());
+Router.events.on('routeChangeError', () => NProgress.done());
 
 export default function MyApp(props: AppProps) {
   const { Component, pageProps } = props;

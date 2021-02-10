@@ -121,6 +121,7 @@ const DefaultAppBar = ({ back, title, ...rest }: DefaultAppBarProps) => {
     </Fragment>
   );
 };
+
 const HomeAppBar = ({ ...rest }: HomeAppBarProps) => {
   const classes = styles();
   return (

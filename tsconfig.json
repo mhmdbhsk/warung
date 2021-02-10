@@ -3,6 +3,7 @@
     "baseUrl": "src",
     "paths": {
       "@components": ["components/index.ts"],
+      "@hooks": ["hooks/index.ts"],
       "@theme": ["theme/index.ts"]
     },
     "allowJs": true,

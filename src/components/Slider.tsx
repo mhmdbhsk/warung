@@ -2,8 +2,9 @@ import { useState, Fragment } from 'react';
 import { Box, makeStyles, MobileStepper, Theme } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import { autoPlay } from 'react-swipeable-views-utils';
+import Image from 'next/image';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const styles = makeStyles((theme: Theme) => ({
   root: {
     padding: theme.spacing(2.5),
   },
@@ -14,8 +15,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingLeft: theme.spacing(2),
     backgroundColor: theme.palette.background.default,
   },
-  img: {
-    height: 94,
+  image: {
+    maxHeight: '94px !important',
     display: 'block',
     overflow: 'hidden',
     width: '100%',
@@ -58,7 +59,7 @@ const images = [
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
 const Slider = () => {
-  const classes = useStyles();
+  const classes = styles();
   const [activeStep, setActiveStep] = useState(0);
   const maxSteps = images.length;
 
@@ -77,10 +78,13 @@ const Slider = () => {
           {images.map((step, index) => (
             <div key={step.label}>
               {Math.abs(activeStep - index) <= 2 ? (
-                <img
-                  className={classes.img}
+                <Image
+                  className={classes.image}
                   src={step.imgPath}
                   alt={step.label}
+                  width="100%"
+                  height={30}
+                  layout="responsive"
                 />
               ) : null}
             </div>
