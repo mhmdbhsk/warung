@@ -10,6 +10,9 @@ import { BottomNavigation } from '@components';
 interface MobileContainerProps extends ContainerProps {
   children: React.ReactNode;
   main?: boolean;
+  home?: boolean;
+  appBar?: boolean;
+  category?: boolean;
 }
 
 const styles = makeStyles((theme: Theme) => ({
@@ -23,7 +26,13 @@ const styles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const MobileContainer = ({ main, children }: MobileContainerProps) => {
+const MobileContainer = ({
+  main,
+  children,
+  home,
+  category,
+  appBar,
+}: MobileContainerProps) => {
   const classes = styles();
 
   return (
@@ -31,7 +40,10 @@ const MobileContainer = ({ main, children }: MobileContainerProps) => {
       <Container
         maxWidth="xs"
         classes={{ root: classes.root }}
-        style={{ paddingBottom: main ? 56 : 0 }}
+        style={{
+          paddingBottom: main ? 56 : 0,
+          paddingTop: home ? 155 : category ? 184 : appBar ? 64 : 0,
+        }}
       >
         {children}
         {main && <BottomNavigation />}

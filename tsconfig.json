@@ -3,7 +3,10 @@
     "baseUrl": "src",
     "paths": {
       "@components": ["components/index.ts"],
+      "@config": ["config/index.ts"],
       "@hooks": ["hooks/index.ts"],
+      "@images": ["assets/images/index.ts"],
+      "@services": ["services/index.ts"],
       "@theme": ["theme/index.ts"]
     },
     "allowJs": true,
