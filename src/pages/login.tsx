@@ -1,6 +1,6 @@
 import { Form, Container, AppBar, Gap, Button } from '@components';
 import Image from 'next/image';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Box, FormControl, makeStyles, Typography } from '@material-ui/core';
 import { useForm } from 'react-hook-form';
 import { MdEmail, MdLock } from 'react-icons/md';

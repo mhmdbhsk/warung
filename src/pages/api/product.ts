@@ -1,12 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { ProductsData, FeaturedData } from '@constants';
+import { NextApiResponse } from 'next';
+import { ProductsData } from '@constants';
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-  // const { query: featured } = req;
-
-  // if (featured) {
-  //   res.status(200).json(FeaturedData);
-  // } else {
+export default function handler(res: NextApiResponse) {
   res.status(200).json(ProductsData);
-  // }
 }

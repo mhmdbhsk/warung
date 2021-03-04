@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { useRouter } from 'next/router';
 import { Container, AppBar, ProductCard } from '@components';
-import { Box, makeStyles, Theme } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import { GetServerSideProps } from 'next';
 import { getListProduct, getListCategories } from '@services';
 import { ProductType, CategoryType } from '@dto';
