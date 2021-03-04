@@ -4,7 +4,12 @@
     "paths": {
       "@components": ["components/index.ts"],
       "@config": ["config/index.ts"],
+      "@constants": ["constants/index.ts"],
+      "@context": ["context/index.ts"],
+      "@dto": ["libs/dto/index.ts"],
+      "@enum": ["libs/enum/index.ts"],
       "@hooks": ["hooks/index.ts"],
+      "@icons": ["assets/icons/index.ts"],
       "@images": ["assets/images/index.ts"],
       "@services": ["services/index.ts"],
       "@theme": ["theme/index.ts"]

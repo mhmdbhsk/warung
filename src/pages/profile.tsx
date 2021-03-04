@@ -1,5 +1,5 @@
 import { AppBar, Container } from '@components';
-import { PlaceholderOrder } from '@images';
+
 import { Box } from '@material-ui/core';
 import { Fragment } from 'react';
 
@@ -13,9 +13,7 @@ const Profile = () => {
           display="flex"
           alignItems="center"
           justifyContent="center"
-        >
-          <PlaceholderOrder />
-        </Box>
+        ></Box>
       </Container>
     </Fragment>
   );

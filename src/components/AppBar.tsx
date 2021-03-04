@@ -18,34 +18,44 @@ import {
 import { useRouter } from 'next/router';
 import { Box, Button } from '@material-ui/core';
 import { Tabs } from '@components';
+import { CategoryType } from '@dto';
 
 interface CustomAppBarProps extends AppBarProps {
   title?: string;
   home?: boolean;
   back?: boolean;
+  data?: CategoryType[] | undefined;
   category?: boolean;
+  noShadow?: boolean;
 }
 
 interface DefaultAppBarProps extends AppBarProps {
   title?: string;
   back?: boolean;
+  noShadow?: boolean;
 }
 
 interface HomeAppBarProps extends AppBarProps {}
 
 interface CategoryAppBarProps extends AppBarProps {
   title?: string;
+  data: CategoryType[] | undefined;
 }
 
 const styles = makeStyles((theme: Theme) => ({
   // Default
   default: {
+    height: 64,
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
     maxWidth: 442,
     margin: '0 auto',
     background: '#fff',
     right: 0,
     left: 0,
+  },
+  toolbar: {
+    height: 64,
+    padding: theme.spacing(0, 2.5),
   },
   menuButton: {
     marginRight: theme.spacing(1),
@@ -65,6 +75,12 @@ const styles = makeStyles((theme: Theme) => ({
     background: '#fff',
     right: 0,
     left: 0,
+  },
+  categoryToolbar: {
+    padding: theme.spacing(0),
+  },
+  categorySearchWrapper: {
+    padding: theme.spacing(0, 2.5),
   },
   categorySearch: {
     position: 'relative',
@@ -160,19 +176,26 @@ const CustomAppBar = ({
   category,
   title,
   back,
+  noShadow,
+  data,
   ...rest
 }: CustomAppBarProps) => {
   return home ? (
     <HomeAppBar {...rest} />
   ) : category ? (
-    <CategoryAppBar title={title} {...rest} />
+    <CategoryAppBar title={title} data={data} {...rest} />
   ) : (
-    <DefaultAppBar title={title} back={back} {...rest} />
+    <DefaultAppBar title={title} back={back} noShadow={noShadow} {...rest} />
   );
 };
 
-const DefaultAppBar = ({ back, title, ...rest }: DefaultAppBarProps) => {
-  const classes = styles();
+const DefaultAppBar = ({
+  back,
+  title,
+  noShadow,
+  ...rest
+}: DefaultAppBarProps) => {
+  const classes = styles(noShadow);
   const router = useRouter();
 
   return (
@@ -181,9 +204,10 @@ const DefaultAppBar = ({ back, title, ...rest }: DefaultAppBarProps) => {
         classes={{ root: classes.default }}
         position="fixed"
         color="transparent"
+        style={{ boxShadow: `${noShadow} && 'none'` }}
         {...rest}
       >
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           {back && (
             <IconButton
               edge="start"
@@ -263,9 +287,9 @@ const HomeAppBar = ({ ...rest }: HomeAppBarProps) => {
   );
 };
 
-const CategoryAppBar = ({ title, ...rest }: CategoryAppBarProps) => {
+const CategoryAppBar = ({ title, data, ...rest }: CategoryAppBarProps) => {
   const classes = styles();
-  const { back } = useRouter();
+  const { push } = useRouter();
 
   return (
     <Fragment>
@@ -276,7 +300,7 @@ const CategoryAppBar = ({ title, ...rest }: CategoryAppBarProps) => {
         elevation={0}
         {...rest}
       >
-        <Toolbar sx={{ height: 184 }}>
+        <Toolbar sx={{ height: 184 }} className={classes.categoryToolbar}>
           <Box
             display="flex"
             flexDirection="column"
@@ -284,42 +308,44 @@ const CategoryAppBar = ({ title, ...rest }: CategoryAppBarProps) => {
             height="100%"
             justifyContent="space-between"
           >
-            <Grid container alignItems="center" sx={{ padding: '8px 0' }}>
-              <IconButton
-                edge="start"
-                className={classes.menuButton}
-                color="primary"
-                aria-label="menu"
-                onClick={() => back()}
-              >
-                <ArrowBack />
-              </IconButton>
-              <Typography variant="h6" className={classes.title}>
-                {title}
-              </Typography>
-            </Grid>
-            <Grid container>
-              <div className={classes.categorySearch}>
-                <div className={classes.categorySearchIcon}>
-                  <Search />
+            <div className={classes.categorySearchWrapper}>
+              <Grid container alignItems="center" sx={{ padding: '8px 0' }}>
+                <IconButton
+                  edge="start"
+                  className={classes.menuButton}
+                  color="primary"
+                  aria-label="menu"
+                  onClick={() => push('/')}
+                >
+                  <ArrowBack />
+                </IconButton>
+                <Typography variant="h6" className={classes.title}>
+                  {title}
+                </Typography>
+              </Grid>
+              <Grid container>
+                <div className={classes.categorySearch}>
+                  <div className={classes.categorySearchIcon}>
+                    <Search />
+                  </div>
+                  <InputBase
+                    placeholder="Kamu mau cari apa?"
+                    classes={{
+                      root: classes.categoryInputRoot,
+                      input: classes.categoryInputInput,
+                    }}
+                    inputProps={{ 'aria-label': 'search' }}
+                  />
                 </div>
-                <InputBase
-                  placeholder="Kamu mau cari apa?"
-                  classes={{
-                    root: classes.categoryInputRoot,
-                    input: classes.categoryInputInput,
-                  }}
-                  inputProps={{ 'aria-label': 'search' }}
-                />
-              </div>
-              <Button
-                variant="outlined"
-                className={classes.categoryFilterButton}
-              >
-                <Filter size={32} />
-              </Button>
-            </Grid>
-            <Tabs />
+                <Button
+                  variant="outlined"
+                  className={classes.categoryFilterButton}
+                >
+                  <Filter size={32} />
+                </Button>
+              </Grid>
+            </div>
+            <Tabs data={data} />
           </Box>
         </Toolbar>
       </AppBar>

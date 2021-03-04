@@ -11,6 +11,11 @@ import { Fragment } from 'react';
 import { Button, Box } from '@material-ui/core';
 import Image from 'next/image';
 import { useCurrencyFormatter as currencyFormat } from '@hooks';
+import { ProductType } from '@dto';
+
+interface ProductCardProps {
+  data: ProductType;
+}
 
 const styles = makeStyles((theme: Theme) => ({
   root: {
@@ -92,22 +97,7 @@ const styles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const data = {
-  id: 3445,
-  name: 'Ain Drop II',
-  category_id: 43,
-  category_name: 'Kesehatan',
-  stock_status: 'instock',
-  price: '75000',
-  regular_price: '75000',
-  sale_price: '60000',
-  description:
-    'Ain Drop adalah herba unik dari HPA yang Insya Allah, mengatasi beebagai masalah kesehatan mata.\r\n\r\nDengan ramuan yang diambil dari cairan pohon khusus dari pergunungan dingin Pakistan dan herba lainnya (diantaranya madu 4 musim), Ain Drop, berdasarkan pengalaman HPA bisa merawat kesehatan mata. Adapun penggunaan cairan khusus ini telah digunakan sejak ratusan tahun oleh masyarakat Pakistan.\r\n\r\nKhasiat Ain Drop II\r\n- rabun\r\n- mata merah\r\n- selaput mata\r\n- tekanan\r\n- sakit gigi\r\n- sakit saraf\r\n- katarak\r\n\r\nCara Penggunaan:\r\n\r\nTeteskan 1 tetes Ain Drop ke mata yang bermasalah pasa waktu pagi hari. Lakukan selama 5 hari berturut-turut.\r\n\r\nSetelah itu lakukan hal yang sama di bulan berikutnya. Jadi, dalam 1 bulan hanya digunakan selama 5 hari dalam sebulan.\r\n\r\nLakukan hal ini hingga Allah menyembuhkan mata Antum Insya Allah.',
-  thumbnail_url:
-    'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-};
-
-const ProductCard = () => {
+const ProductCard = ({ data }: ProductCardProps) => {
   const classes = styles();
   const discount = (
     (Number(data.sale_price) / Number(data.regular_price)) *

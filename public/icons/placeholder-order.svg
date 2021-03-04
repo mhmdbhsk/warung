@@ -1,8 +1,4 @@
-import React from 'react';
-
-const PlaceholderOrder = () => {
-  return (
-    <svg
+<svg
       width="253"
       height="175"
       viewBox="0 0 253 175"
@@ -1545,7 +1541,3 @@ const PlaceholderOrder = () => {
         stroke-linecap="round"
       />
     </svg>
-  );
-};
-
-export default PlaceholderOrder;

@@ -9,6 +9,11 @@ import {
 } from '@material-ui/core';
 import { Fragment, useState } from 'react';
 import { useRouter } from 'next/router';
+import { CategoryType } from '@dto';
+
+interface CustomTabsProps {
+  data: CategoryType[] | undefined;
+}
 
 interface StyledTabsProps extends TabsProps {
   children?: React.ReactNode;
@@ -20,7 +25,7 @@ interface StyledTabProps extends TabProps {
   label: string;
 }
 
-const CustomTabs = () => {
+const CustomTabs = ({ data }: CustomTabsProps) => {
   const [value, setValue] = useState(0);
   const { push } = useRouter();
 
@@ -31,9 +36,13 @@ const CustomTabs = () => {
   return (
     <Fragment>
       <StyledTabs value={value} onChange={handleChange} aria-label="Tabs">
-        <StyledTab label="Sayur" onClick={() => push('/category/sayur')} />
-        <StyledTab label="Daging" onClick={() => push('/category/daging')} />
-        <StyledTab label="Buah" onClick={() => push('/category/buah')} />
+        {data?.map((item) => (
+          <StyledTab
+            label={item.name}
+            onClick={() => push(`/category/${item.id}`)}
+            key={item.id}
+          />
+        ))}
       </StyledTabs>
     </Fragment>
   );
@@ -51,8 +60,19 @@ const StyledTabs = withStyles((theme: Theme) => ({
       backgroundColor: theme.palette.primary.main,
     },
   },
+  scrollButtons: {
+    color: theme.palette.primary.main,
+  },
+  root: {
+    padding: theme.spacing(0, -2.5),
+  },
 }))((props: StyledTabsProps) => (
-  <Tabs {...props} TabIndicatorProps={{ children: <span /> }} />
+  <Tabs
+    variant="scrollable"
+    scrollButtons="auto"
+    {...props}
+    TabIndicatorProps={{ children: <span /> }}
+  />
 ));
 
 const StyledTab = withStyles((theme: Theme) =>

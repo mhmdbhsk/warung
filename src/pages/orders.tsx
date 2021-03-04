@@ -1,6 +1,6 @@
 import { AppBar, Container } from '@components';
-import { PlaceholderOrder } from '@images';
 import { Box } from '@material-ui/core';
+import Image from 'next/image';
 import { Fragment } from 'react';
 
 const Orders = () => {
@@ -14,7 +14,7 @@ const Orders = () => {
           alignItems="center"
           justifyContent="center"
         >
-          <PlaceholderOrder />
+          <Image src="/icons/placeholder-order.svg" width={253} height={200} />
         </Box>
       </Container>
     </Fragment>

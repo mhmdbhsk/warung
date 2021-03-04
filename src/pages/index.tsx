@@ -1,49 +1,54 @@
 import { Fragment, useState, useEffect } from 'react';
 import { AppBar, Categories, Container, Slider, TopSeller } from '@components';
-import { getListCategories, getListTopSeller } from '@services';
+import { getListCategories, getListProduct } from '@services';
+import { CategoryType, ProductType } from '@dto';
+import { GetServerSideProps } from 'next';
 
-export default function Home() {
-  const [loading, setLoading] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [topSeller, setTopSeller] = useState([]);
+interface HomeProps {
+  categories: CategoryType[];
+  topSeller: ProductType[];
+}
 
-  const fetchCategories = async () => {
-    try {
-      setLoading(true);
-      const categories = await getListCategories();
-      setCategories(categories);
-    } catch (error) {
-      console.error('Error!', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchTopSeller = async () => {
-    try {
-      setLoading(true);
-      const topSeller = await getListTopSeller();
-      setCategories(topSeller);
-    } catch (error) {
-      console.error('Error!', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+export default function Home({ categories, topSeller }: HomeProps) {
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchCategories();
-    fetchTopSeller();
-  }, []);
+    setIsLoading(!isLoading);
+  }, [categories, topSeller]);
 
   return (
     <Fragment>
       <Container main home>
         <AppBar home />
-        <Categories data={categories} />
+        <Categories data={categories} loading={isLoading} />
         <Slider />
-        <TopSeller data={topSeller} />
+        <TopSeller data={topSeller.slice(0, 5)} loading={isLoading} />
       </Container>
     </Fragment>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const categories = await getListCategories();
+  const topSeller = await getListProduct();
+
+  if (!categories || !topSeller) {
+    return {
+      props: {
+        isError: true,
+        message: 'error',
+        categories: [],
+        topSeller: [],
+      },
+    };
+  } else {
+    return {
+      props: {
+        isError: false,
+        message: 'success',
+        categories: categories.data,
+        topSeller: topSeller.data,
+      },
+    };
+  }
+};

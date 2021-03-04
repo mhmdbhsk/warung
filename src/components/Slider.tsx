@@ -96,8 +96,8 @@ const Slider = () => {
           position="static"
           activeStep={activeStep}
           classes={{ root: classes.dots, dotActive: classes.dotActive }}
-          backButton
-          nextButton
+          backButton={<></>}
+          nextButton={<></>}
         />
       </Box>
     </Fragment>

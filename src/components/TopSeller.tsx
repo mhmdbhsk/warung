@@ -2,6 +2,16 @@ import { Box, Button, makeStyles, Paper, Typography } from '@material-ui/core';
 import Image from 'next/image';
 import { Fragment } from 'react';
 import { useCurrencyFormatter as currencyFormat } from '@hooks';
+import { ProductType } from '@dto';
+
+interface CardProps {
+  data: ProductType;
+}
+
+interface TopSellerProps {
+  data: ProductType[];
+  loading: boolean;
+}
 
 const styles = makeStyles((theme) => ({
   title: {
@@ -61,27 +71,7 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-interface DataProps {
-  id: number;
-  name: string;
-  category_id: number;
-  category_name: string;
-  stock_status: string;
-  price: string;
-  regular_price: string;
-  sale_price: string | null;
-  description: string;
-  thumbnail_url: string;
-}
-interface CardProps {
-  data: DataProps;
-}
-
-interface dataProps {
-  data: DataProps[];
-}
-
-const data = ({ data }: dataProps) => {
+const data = ({ data, loading }: TopSellerProps) => {
   const classes = styles();
   return (
     <Fragment>
@@ -101,11 +91,15 @@ const data = ({ data }: dataProps) => {
           </Typography>
         </Box>
         <Box>
-          {data.map((item) => (
-            <div key={item.id}>
-              <Card data={item} />
-            </div>
-          ))}
+          {loading ? (
+            <h1>Loading</h1>
+          ) : (
+            data?.map((item) => (
+              <div key={item.id}>
+                <Card data={item} />
+              </div>
+            ))
+          )}
         </Box>
       </Paper>
     </Fragment>

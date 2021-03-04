@@ -5,7 +5,9 @@ export const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
+
+  let token = '12345678';
 
   config.headers = Object.assign(
     {
@@ -18,7 +20,7 @@ axiosInstance.interceptors.request.use((config) => {
 
 axiosInstance.interceptors.response.use(
   function (response: any) {
-    return response.data;
+    return response;
   },
   function (error: any) {
     console.log(error);

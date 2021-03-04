@@ -2,35 +2,16 @@ import { Box, Typography, Paper, makeStyles, Grid } from '@material-ui/core';
 import Image from 'next/image';
 import { Fragment } from 'react';
 import { useRouter } from 'next/router';
-
-interface DataType {
-  id: number;
-  name: string;
-  slug: string;
-  parent: number;
-  description: string;
-  display: string | null;
-  menu_order: string;
-  count: string;
-  image: {
-    id: string | null;
-    date_created: string | null;
-    date_created_gmt: string | null;
-    date_modified: string | null;
-    date_modified_gmt: string | null;
-    src: string | null;
-    name: string | null;
-    alt: string | null;
-  };
-}
+import { CategoryType } from '@dto';
 
 interface CategoryItemProps {
-  data: DataType;
+  data: CategoryType;
   index: number;
 }
 
 interface CategoriesProps {
-  data: DataType[];
+  data: CategoryType[];
+  loading: boolean;
 }
 
 const styles = makeStyles((theme) => ({
@@ -66,7 +47,8 @@ const styles = makeStyles((theme) => ({
   },
 }));
 
-const Categories = ({ data }: CategoriesProps) => {
+const Categories = ({ data, loading }: CategoriesProps) => {
+  console.log(loading);
   const classes = styles();
   return (
     <Fragment>
@@ -86,16 +68,20 @@ const Categories = ({ data }: CategoriesProps) => {
           </Typography>
         </Box>
         <Grid container className={classes.scrollWrapper}>
-          {data.map((item, index) => (
-            <div
-              key={index}
-              style={{
-                paddingRight: index === data.length - 1 ? 16 : 0,
-              }}
-            >
-              <CategoryItem index={index} data={item} />
-            </div>
-          ))}
+          {loading ? (
+            <h1>Loading</h1>
+          ) : (
+            data?.map((item, index) => (
+              <div
+                key={index}
+                style={{
+                  paddingRight: index === data.length - 1 ? 16 : 0,
+                }}
+              >
+                <CategoryItem index={index} data={item} />
+              </div>
+            ))
+          )}
         </Grid>
       </Paper>
     </Fragment>

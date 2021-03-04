@@ -10,12 +10,16 @@
     "@material-ui/core": "next",
     "axios": "^0.21.1",
     "clsx": "latest",
-    "firebase": "^8.2.6",
-    "js-cookie": "^2.2.1",
+    "commitizen": "^4.2.3",
+    "cookies": "^0.8.0",
+    "firebase": "^8.2.9",
+    "firebase-admin": "^9.5.0",
     "next": "latest",
+    "nookies": "^2.5.2",
     "nprogress": "^0.2.0",
     "react": "latest",
     "react-dom": "latest",
+    "react-hook-form": "^6.15.4",
     "react-icons": "^4.2.0",
     "react-query": "^3.8.2",
     "react-swipeable-views": "^0.13.9",
@@ -24,15 +28,30 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "commit": "git-cz"
   },
   "devDependencies": {
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
     "@types/node": "latest",
     "@types/nprogress": "^0.2.0",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@types/react-swipeable-views": "^0.13.0",
     "@types/react-swipeable-views-utils": "^0.13.2",
+    "cz-conventional-changelog": "^3.3.0",
     "typescript": "latest"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
