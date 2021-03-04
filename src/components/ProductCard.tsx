@@ -5,7 +5,6 @@ import {
   CardContent,
   Typography,
   CardMedia,
-  CardActions,
 } from '@material-ui/core';
 import { Fragment } from 'react';
 import { Button, Box } from '@material-ui/core';
